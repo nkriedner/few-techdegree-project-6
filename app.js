@@ -61,14 +61,12 @@ function checkWin() {
     }
     // Set overlay according to win or lose
     if (playerWins) {
-        console.log("WIN!!!");
         // Show overlay screen with "win" class
         document.getElementById("overlay").style.display = "";
         document.getElementById("overlay").className = "win";
         document.querySelector("#overlay .title").textContent = "You won - AMAZING!!!";
         startGameBtn.textContent = "Restart Game";
     } else if (missed >= 5) {
-        console.log("no win :(");
         // Show overlay screen with "lose" class
         document.getElementById("overlay").style.display = "";
         document.getElementById("overlay").className = "lose";
@@ -119,3 +117,6 @@ keyboard.addEventListener("click", (e) => {
         checkWin();
     }
 });
+
+// Choose random phrase on page load
+phraseArray = getRandomPhraseArray(phrases);
