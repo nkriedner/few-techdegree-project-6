@@ -5,14 +5,15 @@ const startGameBtn = document.querySelector(".btn__reset");
 
 // DEFINE VARIABLES
 const phrases = ["Sesame", "Abrakadabra", "Simsalabim", "Hokuspokus", "I am happiness"];
+let phraseArray = [];
 let missed = 0;
 
 // FUNCTIONS
 function getRandomPhraseArray(arr) {
     const randomNumber = Math.floor(Math.random() * arr.length);
     const randomPhrase = arr[randomNumber];
-    const randomPhaseSplit = randomPhrase.split("");
-    return randomPhaseSplit;
+    const randomPhraseSplit = randomPhrase.split("");
+    return randomPhraseSplit;
 }
 function addPhraseToDisplay(arr) {
     const ul = phraseContainer.querySelector("#phrase ul");
@@ -80,6 +81,24 @@ function checkWin() {
 
 // EVENT HANDLERS
 startGameBtn.addEventListener("click", () => {
+    // Reset phrase list
+    document.querySelector("#phrase ul").innerHTML = "";
+    // Reset hearts
+    const tries = document.querySelectorAll(".tries img");
+    for (let i = 0; i < tries.length; i++) {
+        tries[i].src = "images/liveHeart.png";
+    }
+    // Reset keyboard
+    const keyboardBtns = keyboard.querySelectorAll("button");
+    for (let i = 0; i < keyboardBtns.length; i++) {
+        // console.log(keyboardBtns[i]);
+        keyboardBtns[i].classList.remove("chosen");
+        keyboardBtns[i].removeAttribute("disabled");
+    }
+    // Get random phrase
+    phraseArray = getRandomPhraseArray(phrases);
+    missed = 0;
+    addPhraseToDisplay(phraseArray);
     // Hide the start screen overlay
     document.getElementById("overlay").style.display = "none";
 });
@@ -102,7 +121,7 @@ keyboard.addEventListener("click", (e) => {
 });
 
 // Initiate/Test game start ->
-const phraseArray = getRandomPhraseArray(phrases);
-addPhraseToDisplay(phraseArray);
+// const phraseArray = getRandomPhraseArray(phrases);
+// addPhraseToDisplay(phraseArray);
 
 // NEXT STEP -> Create checkWin() function
