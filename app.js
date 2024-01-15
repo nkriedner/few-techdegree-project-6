@@ -40,6 +40,42 @@ function checkLetter(clickedBtn) {
     }
     return matchingLetter;
 }
+function checkWin() {
+    let playerWins;
+    // Get all elements with "letter" class
+    const letterElements = document.querySelectorAll(".letter");
+    let letterClassNumber = letterElements.length;
+    let showClassNumber = 0;
+    // Loop over letterElements and check if each has 'show' class
+    for (let i = 0; i < letterElements.length; i++) {
+        if (letterElements[i].classList.contains("show")) {
+            letterClassNumber++;
+        }
+    }
+    // Check if number of letters with class "show" is equal to number of letters with class "letter"
+    if (letterClassNumber === showClassNumber) {
+        playerWins = true;
+    } else {
+        playerWins = false;
+    }
+    // Set overlay according to win or lose
+    if (playerWins) {
+        console.log("WIN!!!");
+        // Show overlay screen with "win" class
+        document.getElementById("overlay").style.display = "";
+        document.getElementById("overlay").className = "win";
+        document.querySelector("#overlay .title").textContent = "You won - AMAZING!!!";
+    } else if (missed > 4) {
+        console.log("no win :(");
+        // Show overlay screen with "win" class
+        document.getElementById("overlay").style.display = "";
+        document.getElementById("overlay").className = "lose";
+        document.querySelector("#overlay .title").textContent = "You lost... :-(";
+    } else {
+        console.log("return...");
+        return;
+    }
+}
 
 // EVENT HANDLERS
 startGameBtn.addEventListener("click", () => {
@@ -58,15 +94,14 @@ keyboard.addEventListener("click", (e) => {
         // Change one liveHeart.png to lostHeart.png
         // Target the heart li's images
         const tries = document.querySelectorAll(".tries img");
-        console.log(tries[missed]);
         // Change liveHeart to lostHeart
         tries[missed - 1].src = "images/lostHeart.png";
     }
+    checkWin();
 });
 
 // Initiate/Test game start ->
 const phraseArray = getRandomPhraseArray(phrases);
 addPhraseToDisplay(phraseArray);
 
-// NEXT STEP -> ADD EVENT LISTENER TO KEYBOARD
-// NEXT STEP -> Count the missed guesses in game
+// NEXT STEP -> Create checkWin() function
