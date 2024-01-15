@@ -5,7 +5,7 @@ const phraseList = phraseContainer.querySelector("#phrase ul");
 const startGameBtn = document.querySelector(".btn__reset");
 
 // DEFINE VARIABLES
-const phrases = ["Sesame", "Abrakadabra", "Simsalabim", "Hokuspokus", "I am happiness"];
+const phrases = ["Good morning", "Good evening", "This moment loves you", "Follow your bliss", "Relax and just be"];
 let phraseArray = [];
 let missed = 0;
 
