@@ -65,12 +65,14 @@ function checkWin() {
         document.getElementById("overlay").style.display = "";
         document.getElementById("overlay").className = "win";
         document.querySelector("#overlay .title").textContent = "You won - AMAZING!!!";
+        startGameBtn.textContent = "Restart Game";
     } else if (missed >= 5) {
         console.log("no win :(");
         // Show overlay screen with "win" class
         document.getElementById("overlay").style.display = "";
         document.getElementById("overlay").className = "lose";
         document.querySelector("#overlay .title").textContent = "You lost... :-(";
+        startGameBtn.textContent = "Restart Game";
     } else {
         return;
     }
