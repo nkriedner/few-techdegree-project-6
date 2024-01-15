@@ -14,6 +14,20 @@ function getRandomPhraseArray(arr) {
     const randomPhaseSplit = randomPhrase.split("");
     return randomPhaseSplit;
 }
+function addPhraseToDisplay(arr) {
+    const ul = phraseContainer.querySelector("#phrase ul");
+    for (let i = 0; i < arr.length; i++) {
+        const li = document.createElement("li");
+        const text = arr[i];
+        li.textContent = text;
+        // Add the 'letter' class if text is not space
+        if (text !== " ") {
+            li.className = "letter";
+        }
+        ul.appendChild(li);
+    }
+    console.log(arr);
+}
 
 // EVENT HANDLERS
 startGameBtn.addEventListener("click", () => {
@@ -21,5 +35,6 @@ startGameBtn.addEventListener("click", () => {
     document.getElementById("overlay").style.display = "none";
 });
 
-// NEXT STEP(S)
-// -> Create a getRandomPhraseArray function
+// Initiate/Test game start ->
+const phraseArray = getRandomPhraseArray(phrases);
+addPhraseToDisplay(phraseArray);
