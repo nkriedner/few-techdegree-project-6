@@ -1,6 +1,7 @@
 // SELECT ELEMENTS
 const keyboard = document.getElementById("qwerty");
 const phraseContainer = document.getElementById("phrase");
+const phraseList = phraseContainer.querySelector("#phrase ul");
 const startGameBtn = document.querySelector(".btn__reset");
 
 // DEFINE VARIABLES
@@ -16,7 +17,6 @@ function getRandomPhraseArray(arr) {
     return randomPhraseSplit;
 }
 function addPhraseToDisplay(arr) {
-    const ul = phraseContainer.querySelector("#phrase ul");
     for (let i = 0; i < arr.length; i++) {
         const li = document.createElement("li");
         const text = arr[i];
@@ -25,7 +25,7 @@ function addPhraseToDisplay(arr) {
         if (text !== " ") {
             li.className = "letter";
         }
-        ul.appendChild(li);
+        phraseList.appendChild(li);
     }
 }
 function checkLetter(clickedBtn) {
@@ -69,7 +69,7 @@ function checkWin() {
         startGameBtn.textContent = "Restart Game";
     } else if (missed >= 5) {
         console.log("no win :(");
-        // Show overlay screen with "win" class
+        // Show overlay screen with "lose" class
         document.getElementById("overlay").style.display = "";
         document.getElementById("overlay").className = "lose";
         document.querySelector("#overlay .title").textContent = "You lost... :-(";
@@ -82,7 +82,7 @@ function checkWin() {
 // EVENT HANDLERS
 startGameBtn.addEventListener("click", () => {
     // Reset phrase list
-    document.querySelector("#phrase ul").innerHTML = "";
+    phraseList.innerHTML = "";
     // Reset hearts
     const tries = document.querySelectorAll(".tries img");
     for (let i = 0; i < tries.length; i++) {
@@ -91,7 +91,6 @@ startGameBtn.addEventListener("click", () => {
     // Reset keyboard
     const keyboardBtns = keyboard.querySelectorAll("button");
     for (let i = 0; i < keyboardBtns.length; i++) {
-        // console.log(keyboardBtns[i]);
         keyboardBtns[i].classList.remove("chosen");
         keyboardBtns[i].removeAttribute("disabled");
     }
@@ -103,25 +102,20 @@ startGameBtn.addEventListener("click", () => {
     document.getElementById("overlay").style.display = "none";
 });
 keyboard.addEventListener("click", (e) => {
-    // Add 'chosen' class to button of letter and add 'disabled' attribute
-    e.target.className = "chosen";
-    e.target.setAttribute("disabled", true);
-    // Pass button to checkLetter() function
-    const letterFound = checkLetter(e.target.textContent);
-    if (letterFound === null) {
-        missed++;
-        console.log("missed:", missed);
-        // Change one liveHeart.png to lostHeart.png
-        // Target the heart li's images
-        const tries = document.querySelectorAll(".tries img");
-        // Change liveHeart to lostHeart
-        tries[missed - 1].src = "images/lostHeart.png";
+    // Check if clicked element is button (only then continue)
+    if (e.target.tagName === "BUTTON") {
+        // Add 'chosen' class to button of letter and add 'disabled' attribute
+        e.target.className = "chosen";
+        e.target.setAttribute("disabled", true);
+        // Pass button to checkLetter() function
+        const letterFound = checkLetter(e.target.textContent);
+        if (letterFound === null) {
+            missed++;
+            // Target the heart li's images
+            const tries = document.querySelectorAll(".tries img");
+            // Change liveHeart to lostHeart
+            tries[missed - 1].src = "images/lostHeart.png";
+        }
+        checkWin();
     }
-    checkWin();
 });
-
-// Initiate/Test game start ->
-// const phraseArray = getRandomPhraseArray(phrases);
-// addPhraseToDisplay(phraseArray);
-
-// NEXT STEP -> Create checkWin() function
