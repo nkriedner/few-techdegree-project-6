@@ -4,6 +4,7 @@ const phraseContainer = document.getElementById("phrase");
 const startGameBtn = document.querySelector(".btn__reset");
 
 // DEFINE VARIABLES
+const phrases = ["Sesame", "Abrakadabra", "Simsalabim", "Hokuspokus", "I am happiness"];
 let missed = 0;
 
 // EVENT HANDLERS
