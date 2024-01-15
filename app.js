@@ -24,6 +24,8 @@ function addPhraseToDisplay(arr) {
         // Add the 'letter' class if text is not space
         if (text !== " ") {
             li.className = "letter";
+        } else {
+            li.className = "space";
         }
         phraseList.appendChild(li);
     }
