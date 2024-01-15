@@ -49,11 +49,11 @@ function checkWin() {
     // Loop over letterElements and check if each has 'show' class
     for (let i = 0; i < letterElements.length; i++) {
         if (letterElements[i].classList.contains("show")) {
-            letterClassNumber++;
+            showClassNumber++;
         }
     }
     // Check if number of letters with class "show" is equal to number of letters with class "letter"
-    if (letterClassNumber === showClassNumber) {
+    if (letterClassNumber == showClassNumber) {
         playerWins = true;
     } else {
         playerWins = false;
@@ -65,14 +65,13 @@ function checkWin() {
         document.getElementById("overlay").style.display = "";
         document.getElementById("overlay").className = "win";
         document.querySelector("#overlay .title").textContent = "You won - AMAZING!!!";
-    } else if (missed > 4) {
+    } else if (missed >= 5) {
         console.log("no win :(");
         // Show overlay screen with "win" class
         document.getElementById("overlay").style.display = "";
         document.getElementById("overlay").className = "lose";
         document.querySelector("#overlay .title").textContent = "You lost... :-(";
     } else {
-        console.log("return...");
         return;
     }
 }
