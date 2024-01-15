@@ -26,16 +26,13 @@ function addPhraseToDisplay(arr) {
         }
         ul.appendChild(li);
     }
-    console.log(arr);
 }
 function checkLetter(clickedBtn) {
     let matchingLetter = null;
     // Get all elements with "letter" class
     const letterElements = document.querySelectorAll(".letter");
-    console.log(letterElements);
     // Loop over letters and check if they match clickedBtn
     for (let i = 0; i < letterElements.length; i++) {
-        console.log(letterElements[i].textContent);
         if (letterElements[i].textContent.toLowerCase() === clickedBtn) {
             letterElements[i].classList.add("show");
             matchingLetter = letterElements[i].textContent;
@@ -50,12 +47,21 @@ startGameBtn.addEventListener("click", () => {
     document.getElementById("overlay").style.display = "none";
 });
 keyboard.addEventListener("click", (e) => {
-    console.log(e.target.textContent);
     // Add 'chosen' class to button of letter and add 'disabled' attribute
     e.target.className = "chosen";
     e.target.setAttribute("disabled", true);
     // Pass button to checkLetter() function
     const letterFound = checkLetter(e.target.textContent);
+    if (letterFound === null) {
+        missed++;
+        console.log("missed:", missed);
+        // Change one liveHeart.png to lostHeart.png
+        // Target the heart li's images
+        const tries = document.querySelectorAll(".tries img");
+        console.log(tries[missed]);
+        // Change liveHeart to lostHeart
+        tries[missed - 1].src = "images/lostHeart.png";
+    }
 });
 
 // Initiate/Test game start ->
