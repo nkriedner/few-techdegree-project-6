@@ -49,9 +49,18 @@ startGameBtn.addEventListener("click", () => {
     // Hide the start screen overlay
     document.getElementById("overlay").style.display = "none";
 });
+keyboard.addEventListener("click", (e) => {
+    console.log(e.target.textContent);
+    // Add 'chosen' class to button of letter and add 'disabled' attribute
+    e.target.className = "chosen";
+    e.target.setAttribute("disabled", true);
+    // Pass button to checkLetter() function
+    const letterFound = checkLetter(e.target.textContent);
+});
 
 // Initiate/Test game start ->
 const phraseArray = getRandomPhraseArray(phrases);
 addPhraseToDisplay(phraseArray);
 
 // NEXT STEP -> ADD EVENT LISTENER TO KEYBOARD
+// NEXT STEP -> Count the missed guesses in game
