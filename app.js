@@ -28,6 +28,21 @@ function addPhraseToDisplay(arr) {
     }
     console.log(arr);
 }
+function checkLetter(clickedBtn) {
+    let matchingLetter = null;
+    // Get all elements with "letter" class
+    const letterElements = document.querySelectorAll(".letter");
+    console.log(letterElements);
+    // Loop over letters and check if they match clickedBtn
+    for (let i = 0; i < letterElements.length; i++) {
+        console.log(letterElements[i].textContent);
+        if (letterElements[i].textContent.toLowerCase() === clickedBtn) {
+            letterElements[i].classList.add("show");
+            matchingLetter = letterElements[i].textContent;
+        }
+    }
+    return matchingLetter;
+}
 
 // EVENT HANDLERS
 startGameBtn.addEventListener("click", () => {
@@ -38,3 +53,5 @@ startGameBtn.addEventListener("click", () => {
 // Initiate/Test game start ->
 const phraseArray = getRandomPhraseArray(phrases);
 addPhraseToDisplay(phraseArray);
+
+// NEXT STEP -> ADD EVENT LISTENER TO KEYBOARD
